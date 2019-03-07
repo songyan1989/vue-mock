@@ -1,31 +1,37 @@
-
 <template>
-  <div>
-    <router-link to="/mock">123</router-link>
-    <router-link to="/hello">456</router-link>
-    <router-view>
-    </router-view>
+  <div id="app">
+    <admin />
+    <trace :information="trace"/>
   </div>
-
 </template>
+
 <script>
-import Admin from './components/Admin.vue';
-import Mock from './components/Mock.vue';
+import Admin from './components/Admin'
+// 这里是第二处
+import Trace from './components/Trace'
 
 export default {
   name: 'App',
-  methods: {
+  data () {
+    return {
+      trace: {
+        rows: []
+      }
+    }
+  },
+  // 这里第3处
+  created () {
+    this.$addReceiver((data) => {
+      console.log(data)
+      if (data.trace) this.trace = data.trace
+    })
+    this.$httpGet('/index.json')
   },
   components: {
     Admin,
-    Mock
-  },
-};
-</script>
-<style>
-html,body{
-    height: 100%;
-    overflow: hidden;
+    Trace
+  }
 }
+</script>
 
-</style>
+<style>

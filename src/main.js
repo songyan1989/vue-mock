@@ -5,12 +5,19 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import Http from './Util/Http'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 /* eslint-disable no-new */
 /* eslint-disable */
 // eslint-disable-next-line
-require("./mock.js")
+// 我们那个插件
+
+// mock
+import mock from  './api/mock';
+// mock中用的，伏笔
+Vue.createUrl = url => url;
+
 new Vue({
   el: '#app',
   router,
